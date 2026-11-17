@@ -1,0 +1,18 @@
+.container { min-height: 100vh; padding-bottom: 140px; padding-bottom: calc(140px + env(safe-area-inset-bottom)); background: #f5f5f5; }
+.card { background: #fff; margin: 6px 10px 0; border-radius: 10px; padding: 10px 14px; }
+.section-title { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #f0f0f0; }
+
+.picker-field { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+.field-label { font-size: 14px; color: #333; }
+.picker-value { display: flex; align-items: center; gap: 4px; font-size: 14px; color: #333; }
+.picker-value.placeholder { color: #999; }
+
+.item-block { background: #f7f8fa; border-radius: 8px; padding: 6px 0; margin-bottom: 8px; }
+.item-header { display: flex; justify-content: space-between; align-items: center; padding: 0 14px 2px; }
+.item-num { font-size: 12px; color: #1989fa; font-weight: 500; }
+.inline-fields { display: flex; }
+
+.add-btn { text-align: center; padding-top: 2px; }
+
+.submit-bar { padding: 16px 24px; }
+.submit-bar .van-button { border-radius: 8px !important; font-size: 16px; letter-spacing: 2px; }

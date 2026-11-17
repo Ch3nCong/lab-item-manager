@@ -1,0 +1,24 @@
+<view class="container">
+  <!-- Logo -->
+  <view class="logo-area">
+    <image class="logo-img" src="/images/logo.png" mode="aspectFit" />
+    <view class="app-name">实验室物品管理</view>
+    <view class="app-desc">个人实验物品记录工具</view>
+  </view>
+
+  <!-- 登录按钮 -->
+  <view class="login-area">
+    <van-button
+      type="primary"
+      size="large"
+      block
+      round
+      loading="{{logging}}"
+      disabled="{{logging}}"
+      bindtap="doLogin"
+    >
+      微信一键登录
+    </van-button>
+    <view class="login-tip">登录后即可使用全部功能</view>
+  </view>
+</view>

@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/apply/apply",
+    "pages/detail/detail",
+    "pages/admin/admin",
+    "pages/about/about"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "实验室物品管理",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#1989fa",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记录",
+        "iconPath": "images/tab-record.png",
+        "selectedIconPath": "images/tab-record-active.png"
+      },
+      {
+        "pagePath": "pages/apply/apply",
+        "text": "提交申领",
+        "iconPath": "images/tab-apply.png",
+        "selectedIconPath": "images/tab-apply-active.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "images/tab-about.png",
+        "selectedIconPath": "images/tab-about-active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-loading": "@vant/weapp/loading/index"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

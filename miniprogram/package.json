@@ -1,0 +1,12 @@
+{
+  "name": "lab-item-manager",
+  "version": "1.0.0",
+  "description": "个人实验室物品管理工具（去敏感化版）",
+  "main": "miniprogram/app.js",
+  "dependencies": {
+    "@vant/weapp": "^1.11.4"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}

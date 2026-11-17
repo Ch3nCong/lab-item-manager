@@ -1,0 +1,13 @@
+# 依赖
+node_modules/
+miniprogram/miniprogram_npm/
+
+# 个人配置（含 AppID，不入库）
+project.private.config.json
+
+# 备份
+.backup_pre_github/
+*.bak
+
+# 系统文件
+.DS_Store

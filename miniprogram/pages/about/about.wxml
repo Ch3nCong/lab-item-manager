@@ -1,0 +1,48 @@
+<view class="container">
+  <!-- Logo 区域（隐藏管理入口） -->
+  <view class="logo-area" bindtap="onLogoClick">
+    <image class="logo-img" src="/images/logo.png" mode="aspectFit" />
+    <view class="app-name">实验室物品管理</view>
+    <view class="app-desc">个人实验物品记录工具</view>
+    <view wx:if="{{showAdminTip}}" class="admin-tip">再点击 {{ 5 - clickCount }} 次进入管理后台</view>
+  </view>
+
+  <!-- 用户信息 -->
+  <view class="user-section">
+    <view class="user-card">
+      <image class="avatar" src="{{avatarUrl || '/images/logo.png'}}" mode="aspectFill" />
+      <view class="user-info">
+        <view class="nickname">{{displayName}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作区 -->
+  <view class="action-section">
+    <van-button block type="default" bindtap="logout" custom-style="margin-top: 20px;">
+      退出登录
+    </van-button>
+  </view>
+
+  <view class="version">版本 {{appVersion}}</view>
+</view>
+
+<!-- 密码弹窗（自定义） -->
+<view wx:if="{{showPwdDialog}}" class="modal-mask" bindtap="cancelPwd">
+  <view class="modal-content" catchtap="preventBubble">
+    <view class="modal-title">管理后台验证</view>
+    <input
+      class="pwd-input"
+      password="{{true}}"
+      placeholder="请输入管理密码"
+      value="{{pwdInput}}"
+      bindinput="onPwdInput"
+      focus="{{showPwdDialog}}"
+    />
+    <view wx:if="{{pwdError}}" class="pwd-error">{{pwdError}}</view>
+    <view class="modal-btns">
+      <button class="modal-btn modal-btn-cancel" bindtap="cancelPwd">取消</button>
+      <button class="modal-btn modal-btn-confirm" bindtap="verifyPassword">确认</button>
+    </view>
+  </view>
+</view>

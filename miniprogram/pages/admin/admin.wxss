@@ -1,0 +1,67 @@
+.container { min-height: 100vh; background: #f5f5f5; }
+
+.header { padding: 8px 14px 6px; background: #fff; }
+.header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.header-title { font-size: 18px; font-weight: 700; color: #333; }
+.header-actions { display: flex; justify-content: center; gap: 8px; }
+
+.tab-bar { display: flex; background: #fff; padding: 0 14px; }
+.tab-item { flex: 1; text-align: center; padding: 10px 0; font-size: 13px; color: #999; border-bottom: 2px solid transparent; }
+.tab-item.active { color: #1989fa; font-weight: 600; border-bottom-color: #1989fa; }
+
+.search-bar { display: flex; align-items: center; gap: 6px; margin: 6px 12px 0; padding: 6px 10px; background: #fff; border-radius: 6px; }
+.search-input { flex: 1; height: 30px; font-size: 13px; }
+
+.group { margin: 4px 0; }
+.group-header { display: flex; align-items: center; padding: 6px 12px; }
+.group-dot { width: 6px; height: 6px; border-radius: 50%; background: #1989fa; margin-right: 6px; }
+.group-name { font-size: 14px; font-weight: 600; color: #333; }
+.group-count { font-size: 11px; color: #999; margin-left: 4px; }
+
+.record-card { margin: 0 8px 4px; padding: 8px 12px; background: #fff; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.card-info { display: flex; align-items: center; gap: 8px; }
+.card-applicant { font-size: 12px; color: #333; font-weight: 500; }
+.card-date { font-size: 10px; color: #bbb; }
+
+.table-header { display: flex; padding: 4px 0; border-bottom: 1px solid #ebedf0; margin-bottom: 2px; }
+.th { font-size: 10px; color: #999; font-weight: 500; }
+.th-name { flex: 2; } .th-supplier { flex: 1.5; }
+.th-price { flex: 1; text-align: right; } .th-total { flex: 1; text-align: right; }
+
+.table-row { display: flex; padding: 4px 0; border-bottom: 1px solid #f8f8f8; }
+.table-row:last-child { border-bottom: none; }
+.td { font-size: 11px; color: #333; }
+.td-name { flex: 2; font-weight: 500; }
+.td-supplier { flex: 1.5; color: #07c160; }
+.td-price { flex: 1; text-align: right; color: #666; }
+.td-total { flex: 1; text-align: right; color: #ee0a24; font-weight: 500; }
+
+.card-actions { display: flex; justify-content: flex-end; padding-top: 6px; border-top: 1px solid #f0f0f0; margin-top: 4px; }
+
+/* 导出弹窗 */
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { width: 280px; background: #fff; border-radius: 12px; padding: 20px 16px 14px; }
+.modal-title { font-size: 17px; font-weight: 600; color: #333; text-align: center; margin-bottom: 14px; }
+.export-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f5f5f5; }
+.export-label { font-size: 13px; color: #333; }
+.picker-val { font-size: 13px; color: #1989fa; }
+.export-hint { font-size: 11px; color: #999; margin-top: 6px; text-align: right; }
+.modal-btns { display: flex; gap: 10px; margin-top: 16px; }
+.modal-btn { flex: 1; height: 38px; line-height: 38px; border-radius: 8px; font-size: 14px; text-align: center; border: none; padding: 0; }
+.modal-btn::after { border: none; }
+.modal-btn-cancel { background: #f5f5f5; color: #666; }
+.modal-btn-confirm { background: #1989fa; color: #fff; }
+
+/* 批量 */
+.checkbox-wrap { margin-right: 6px; }
+.checkbox { width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; }
+.checkbox.checked { background: #1989fa; border-color: #1989fa; }
+.batch-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 8px 14px; background: #fff; border-top: 1px solid #ebedf0; z-index: 100; padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+.batch-actions { display: flex; justify-content: center; gap: 6px; margin-bottom: 4px; }
+.batch-btn { flex: 1; text-align: center; padding: 4px 0; border-radius: 4px; font-size: 11px; color: #fff; }
+.batch-btn.info { background: #fff; color: #1989fa; border: 1px solid #1989fa; }
+.batch-btn.success { background: #07c160; }
+.batch-btn.primary { background: #1989fa; }
+.batch-btn.danger { background: #ee0a24; }
+.batch-count { display: block; text-align: center; font-size: 12px; color: #999; }

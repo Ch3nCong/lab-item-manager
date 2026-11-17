@@ -1,0 +1,29 @@
+<!-- 通用记录卡片组件 -->
+<view class="record-card card" bindtap="onTap">
+  <!-- 头部 -->
+  <view class="flex-between header">
+    <van-tag type="{{statusColor[record.status]}}" mark>
+      {{statusText[record.status]}}
+    </van-tag>
+    <text class="time-text">{{record.create_time}}</text>
+  </view>
+
+  <!-- 物品列表 -->
+  <view class="items" wx:for="{{record.items}}" wx:key="name" wx:for-item="goods">
+    <view class="item-line">
+      <text class="item-name">{{goods.name}}</text>
+      <text class="item-count">×{{goods.count}}</text>
+      <text class="item-price">¥{{goods.price}}</text>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view wx:if="{{record.admin_memo}}" class="memo">
+    <text>{{record.admin_memo}}</text>
+  </view>
+
+  <!-- 操作区域 -->
+  <view wx:if="{{showActions}}" class="actions">
+    <slot name="actions"></slot>
+  </view>
+</view>

@@ -1,0 +1,121 @@
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="card">
+    <view class="section-title">基本信息</view>
+
+    <!-- 申请日期 -->
+    <picker mode="date" value="{{applyDate}}" bindchange="onDateChange">
+      <view class="picker-field">
+        <text class="field-label">申请日期</text>
+        <view class="picker-value {{applyDate ? '' : 'placeholder'}}">
+          <text>{{applyDate || '请选择日期'}}</text>
+          <van-icon name="arrow" size="14px" color="#999" />
+        </view>
+      </view>
+    </picker>
+
+    <!-- 申请人 -->
+    <van-field
+      label="申请人"
+      value="{{applicant}}"
+      placeholder="请输入姓名"
+      border="{{false}}"
+      bind:change="onApplicantInput"
+    />
+  </view>
+
+  <!-- 物品清单 -->
+  <view class="card">
+    <view class="section-title">物品清单</view>
+
+    <view wx:for="{{items}}" wx:key="index" class="item-block">
+      <view class="item-header">
+        <text class="item-num">物品 {{index + 1}}</text>
+        <van-icon
+          wx:if="{{items.length > 1}}"
+          name="delete-o"
+          size="18px"
+          color="#ee0a24"
+          bindtap="removeItem"
+          data-index="{{index}}"
+        />
+      </view>
+
+      <van-field
+        label="物品名称"
+        value="{{item.name}}"
+        placeholder="请输入"
+        border="{{false}}"
+        bind:change="onNameInput"
+        data-index="{{index}}"
+      />
+
+      <van-field
+        label="供货方"
+        value="{{item.supplier}}"
+        placeholder="选填"
+        border="{{false}}"
+        bind:change="onSupplierInput"
+        data-index="{{index}}"
+      />
+
+      <view class="inline-fields">
+        <van-field
+          label="单价"
+          value="{{item.price}}"
+          type="digit"
+          placeholder="0.00"
+          border="{{false}}"
+          custom-style="flex:1;"
+          bind:change="onPriceInput"
+          data-index="{{index}}"
+        />
+        <van-field
+          label="数量"
+          value="{{item.count}}"
+          type="number"
+          placeholder="1"
+          border="{{false}}"
+          custom-style="flex:1;"
+          bind:change="onCountChange"
+          data-index="{{index}}"
+        />
+      </view>
+    </view>
+
+    <view class="add-btn">
+      <van-button type="primary" size="small" hairline icon="plus" bind:click="addItem">
+        添加物品
+      </van-button>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <van-field
+      label="备注"
+      value="{{memo}}"
+      placeholder="选填"
+      type="textarea"
+      autosize
+      maxlength="200"
+      show-word-limit
+      border="{{false}}"
+      bind:change="onMemoInput"
+    />
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-bar">
+    <van-button
+      type="primary"
+      size="large"
+      block
+      loading="{{submitting}}"
+      disabled="{{submitting}}"
+      bindtap="onSubmit"
+    >
+      提交申领
+    </van-button>
+  </view>
+</view>

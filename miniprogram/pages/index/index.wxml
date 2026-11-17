@@ -1,0 +1,116 @@
+<view class="container">
+  <!-- 顶部 -->
+  <view class="header">
+    <view class="header-row">
+      <view wx:if="{{isAdmin && !myOnly}}" class="header-title">所有记录</view>
+      <view wx:else class="header-title">我的申领</view>
+      <view class="header-right">
+        <view wx:if="{{isAdmin}}" class="my-only {{myOnly ? 'active' : ''}}" bindtap="toggleMyOnly">我的</view>
+        <view class="filter-bar" bindtap="toggleFilter">
+        <text class="filter-text">{{statusFilter === 'all' ? '全部' : statusFilter === 'pending' ? '已申请' : '已确认'}}</text>
+        <van-icon name="arrow-down" size="12px" color="#999" />
+      </view>
+    </view>
+    </view>
+    <view class="header-actions">
+      <van-button wx:if="{{!batchMode}}" type="primary" size="mini" custom-style="padding:0 8px!important;min-width:36px;font-size:11px;" bindtap="openExport">导出</van-button>
+      <van-button type="{{batchMode ? 'danger' : 'default'}}" size="mini" custom-style="padding:0 8px!important;min-width:36px;font-size:11px;" bindtap="toggleBatchMode">
+        {{batchMode ? '取消' : '批量'}}
+      </van-button>
+    </view>
+  </view>
+
+  <!-- 搜索 -->
+  <view class="search-bar">
+    <input class="search-input" value="{{keyword}}" placeholder="搜索申请人/物品/供货方" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch" />
+    <van-icon wx:if="{{keyword}}" name="clear" size="16px" color="#999" bindtap="clearSearch" />
+  </view>
+
+  <!-- 筛选 -->
+  <view wx:if="{{showFilter}}" class="filter-dropdown">
+    <view class="filter-item {{statusFilter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="onFilterChange">全部</view>
+    <view class="filter-item {{statusFilter === 'pending' ? 'active' : ''}}" data-filter="pending" bindtap="onFilterChange">已申请</view>
+    <view class="filter-item {{statusFilter === 'confirmed' ? 'active' : ''}}" data-filter="confirmed" bindtap="onFilterChange">已确认</view>
+  </view>
+
+  <van-loading wx:if="{{loading}}" style="padding-top:100px;" />
+  <van-empty wx:elif="{{groupedRecords.length === 0}}" description="暂无记录" />
+
+  <!-- 记录列表 -->
+  <view wx:else class="records-list">
+    <view wx:for="{{groupedRecords}}" wx:key="date" class="date-group">
+      <view class="date-header">
+        <view class="date-dot"></view>
+        <text class="date-text">{{item.date}}</text>
+        <text class="date-count">{{item.records.length}} 条</text>
+      </view>
+
+      <view wx:for="{{item.records}}" wx:key="_id" wx:for-item="record"
+        class="record-card"
+        data-id="{{record._id}}"
+        bindtap="onCardTap"
+      >
+        <view class="card-top">
+          <!-- 批量模式下的复选框 -->
+          <view wx:if="{{batchMode}}" class="checkbox-wrap" catchtap="toggleSelect" data-id="{{record._id}}">
+            <view class="checkbox {{selectedIds[record._id] ? 'checked' : ''}}">
+              <text wx:if="{{selectedIds[record._id]}}">✓</text>
+            </view>
+          </view>
+          <text class="card-applicant">{{record.applicant}}</text>
+          <text wx:if="{{record.apply_date}}" class="card-date-line">{{record.apply_date}}</text>
+          <van-tag wx:if="{{record.voided}}" type="danger" size="medium">已作废</van-tag>
+          <van-tag wx:else type="{{record.status === 'pending' ? 'warning' : 'primary'}}" size="medium">
+            {{record.status === 'pending' ? '已申请' : '已确认'}}
+          </van-tag>
+        </view>
+        <view class="mini-table-header">
+          <text class="mth mth-name">物品名称</text>
+          <text class="mth mth-supplier">供货商</text>
+          <text class="mth mth-price">单价</text>
+          <text class="mth mth-total">总价</text>
+        </view>
+        <view wx:for="{{record.items}}" wx:key="name" wx:for-item="it" class="mini-table-row">
+          <text class="mt mt-name">{{it.name}}</text>
+          <text class="mt mt-supplier">{{it.supplier || '-'}}</text>
+          <text class="mt mt-price">¥{{it.price}}</text>
+          <text class="mt mt-total">¥{{it.price * it.count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 批量操作栏 -->
+<view wx:if="{{batchMode}}" class="batch-bar">
+  <view class="batch-actions">
+    <view class="batch-btn info" bindtap="selectAll">全</view>
+    <view class="batch-btn primary" bindtap="batchExport">导出</view>
+    <view class="batch-btn danger" bindtap="batchDelete">{{isAdmin && !myOnly ? '删除' : '作废'}}</view>
+  </view>
+  <text class="batch-count">已选 {{selectedCount || 0}} 项</text>
+</view>
+
+<!-- 导出弹窗 -->
+<view wx:if="{{showExport}}" class="modal-mask" bindtap="closeExport">
+  <view class="modal-content" catchtap="preventBubble">
+    <view class="modal-title">导出 CSV</view>
+    <view class="export-row">
+      <text class="export-label">起始日期</text>
+      <picker mode="date" value="{{exportStartDate}}" bindchange="onStartDateChange">
+        <view class="picker-val">{{exportStartDate || '选择'}}</view>
+      </picker>
+    </view>
+    <view class="export-row">
+      <text class="export-label">截止日期</text>
+      <picker mode="date" value="{{exportEndDate}}" bindchange="onEndDateChange">
+        <view class="picker-val">{{exportEndDate || '选择'}}</view>
+      </picker>
+    </view>
+    <text class="export-hint">导出当前用户所选时间范围内的申请记录</text>
+    <view class="modal-btns">
+      <button class="modal-btn modal-btn-cancel" bindtap="closeExport">取消</button>
+      <button class="modal-btn modal-btn-confirm" bindtap="doExport">导出</button>
+    </view>
+  </view>
+</view>
